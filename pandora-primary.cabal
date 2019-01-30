@@ -18,7 +18,8 @@ source-repository head
   location: https://github.com/iokasimov/pandora-primary.git
 
 library
-  build-depends: ghc-prim == 0.5.3
-  exposed-modules: Pandora.Primary
+  build-depends: ghc-prim == 0.5.3, pandora == 0.1.0
+  exposed-modules: Pandora.Primary, Pandora.Primary.IO
   default-language: Haskell2010
+  default-extensions: MagicHash, NoImplicitPrelude, PackageImports, UnboxedTuples
   ghc-options: -fno-warn-tabs
