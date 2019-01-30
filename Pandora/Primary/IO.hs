@@ -5,6 +5,7 @@ import "pandora" Pandora.Pattern.Functor.Covariant (Covariant ((<$>)))
 import "pandora" Pandora.Pattern.Functor.Pointable (Pointable (point))
 import "pandora" Pandora.Pattern.Functor.Applicative (Applicative ((<*>)))
 import "pandora" Pandora.Pattern.Functor.Bindable (Bindable ((>>=)))
+import "pandora" Pandora.Pattern.Functor.Monad (Monad)
 
 import "ghc-prim" GHC.Prim (State#, RealWorld)
 import "ghc-prim" GHC.Types (IO (IO))
@@ -20,6 +21,8 @@ instance Applicative IO where
 
 instance Bindable IO where
 	(>>=) = bindIO
+
+instance Monad IO where
 
 returnIO :: a -> IO a
 returnIO x = IO (\ s -> (# s, x #))
