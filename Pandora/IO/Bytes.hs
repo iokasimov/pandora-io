@@ -1,4 +1,4 @@
-module Pandora.Primary.Bytes (Bytes (..)) where
+module Pandora.IO.Bytes (Bytes (..)) where
 
 import "ghc-prim" GHC.Prim (ByteArray#, Int#)
 

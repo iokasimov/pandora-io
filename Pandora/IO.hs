@@ -1,6 +1,9 @@
-module Pandora.Primary.IO (IO) where
+module Pandora.IO (IO, module Exports) where
+
+import Pandora.IO.Bytes as Exports
 
 import "pandora" Pandora.Core.Morphism ((.))
+import "pandora" Pandora.Paradigm.Junction.Transformer (T (T, t), type (:!:))
 import "pandora" Pandora.Pattern.Functor.Covariant (Covariant ((<$>)))
 import "pandora" Pandora.Pattern.Functor.Pointable (Pointable (point))
 import "pandora" Pandora.Pattern.Functor.Applicative (Applicative ((<*>)))
