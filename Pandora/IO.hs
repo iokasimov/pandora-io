@@ -8,6 +8,7 @@ import "pandora" Pandora.Pattern.Functor.Pointable (Pointable (point))
 import "pandora" Pandora.Pattern.Functor.Applicative (Applicative ((<*>)))
 import "pandora" Pandora.Pattern.Functor.Bindable (Bindable ((>>=)))
 import "pandora" Pandora.Pattern.Functor.Monad (Monad)
+import "pandora" Pandora.Paradigm.Primary.Functor.Function ()
 
 import "ghc-prim" GHC.Prim (State#, RealWorld)
 import "ghc-prim" GHC.Types (IO (IO))
