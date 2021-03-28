@@ -1,5 +1,6 @@
 module Pandora.IO (IO, module Exports) where
 
+import Pandora.IO.ASCII as Exports
 import Pandora.IO.Bytes as Exports
 
 import "pandora" Pandora.Pattern.Category ((.))
