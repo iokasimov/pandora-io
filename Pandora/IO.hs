@@ -3,28 +3,30 @@ module Pandora.IO (IO, module Exports) where
 import Pandora.IO.ASCII as Exports
 import Pandora.IO.Bytes as Exports
 
-import "pandora" Pandora.Pattern.Category ((.))
-import "pandora" Pandora.Pattern.Functor.Covariant (Covariant ((<$>)))
+import "pandora" Pandora.Pattern.Semigroupoid ((.))
+import "pandora" Pandora.Pattern.Category (($))
+import "pandora" Pandora.Pattern.Functor.Covariant (Covariant ((-<$>-)))
 import "pandora" Pandora.Pattern.Functor.Pointable (Pointable (point))
-import "pandora" Pandora.Pattern.Functor.Applicative (Applicative ((<*>)))
-import "pandora" Pandora.Pattern.Functor.Bindable (Bindable ((>>=)))
+import "pandora" Pandora.Pattern.Functor.Semimonoidal (Semimonoidal (multiply_))
+import "pandora" Pandora.Pattern.Functor.Bindable (Bindable ((=<<)))
 import "pandora" Pandora.Pattern.Functor.Monad (Monad)
-import "pandora" Pandora.Paradigm.Primary.Functor.Function ()
+import "pandora" Pandora.Paradigm.Primary.Algebraic.Exponential ()
+import "pandora" Pandora.Paradigm.Primary.Algebraic.Product ((:*:)((:*:)))
 
 import "ghc-prim" GHC.Prim (State#, RealWorld)
 import "ghc-prim" GHC.Types (IO (IO))
 
-instance Covariant IO where
-	f <$> x = bindIO x (returnIO . f)
+instance Covariant IO (->) (->) where
+	f -<$>- x = bindIO x (returnIO . f)
 
-instance Pointable IO where
+instance Pointable IO (->) where
 	point = returnIO
 
-instance Applicative IO where
-	x <*> y = x >>= \x' -> y >>= \y' -> returnIO (x' y')
+instance Semimonoidal IO (->) (:*:) (:*:) where
+	multiply_ (x :*: y) = bindIO x $ \x' -> bindIO y $ \y' -> returnIO (x' :*: y')
 
-instance Bindable IO where
-	(>>=) = bindIO
+instance Bindable IO (->) where
+	f =<< x = bindIO x f
 
 instance Monad IO where
 
