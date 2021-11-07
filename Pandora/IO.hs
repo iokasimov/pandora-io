@@ -15,6 +15,7 @@ import "pandora" Pandora.Paradigm.Primary.Algebraic.Exponential (type (-->))
 import "pandora" Pandora.Paradigm.Primary.Algebraic.Product ((:*:)((:*:)))
 import "pandora" Pandora.Paradigm.Primary.Algebraic.One (One (One))
 import "pandora" Pandora.Paradigm.Primary.Algebraic ()
+import Pandora.Paradigm.Controlflow.Effect.Interpreted (run)
 
 import "ghc-prim" GHC.Prim (State#, RealWorld)
 import "ghc-prim" GHC.Types (IO (IO))
@@ -25,8 +26,8 @@ instance Covariant (->) (->) IO where
 instance Semimonoidal (-->) (:*:) (:*:) IO where
 	mult = Straight $ \(x :*: y) -> bindIO x $ \x' -> bindIO y $ \y' -> returnIO (x' :*: y')
 
-instance Monoidal (-->) (->) (:*:) (:*:) IO where
-	unit _ = Straight $ returnIO . ($ One)
+instance Monoidal (-->) (-->) (:*:) (:*:) IO where
+	unit _ = Straight $ returnIO . ($ One) . run
 
 instance Bindable (->) IO where
 	f =<< x = bindIO x f
