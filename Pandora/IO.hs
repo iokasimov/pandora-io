@@ -6,7 +6,7 @@ import Pandora.IO.Bytes as Exports
 import "pandora" Pandora.Pattern.Morphism.Straight (Straight (Straight))
 import "pandora" Pandora.Pattern.Semigroupoid ((.))
 import "pandora" Pandora.Pattern.Category (($))
-import "pandora" Pandora.Pattern.Functor.Covariant (Covariant ((<$>)))
+import "pandora" Pandora.Pattern.Functor.Covariant (Covariant ((<-|-)))
 import "pandora" Pandora.Pattern.Functor.Semimonoidal (Semimonoidal (mult))
 import "pandora" Pandora.Pattern.Functor.Monoidal (Monoidal (unit))
 import "pandora" Pandora.Pattern.Functor.Bindable (Bindable ((=<<)))
@@ -21,7 +21,7 @@ import "ghc-prim" GHC.Prim (State#, RealWorld)
 import "ghc-prim" GHC.Types (IO (IO))
 
 instance Covariant (->) (->) IO where
-	f <$> x = bindIO x (returnIO . f)
+	f <-|- x = bindIO x (returnIO . f)
 
 instance Semimonoidal (-->) (:*:) (:*:) IO where
 	mult = Straight $ \(x :*: y) -> bindIO x $ \x' -> bindIO y $ \y' -> returnIO (x' :*: y')
