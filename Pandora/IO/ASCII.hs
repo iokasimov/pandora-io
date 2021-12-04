@@ -57,7 +57,7 @@ instance Setoid Control where
 
 data Sign = Exclamation | Quote Quote | Hash | Dollar | Percent | Ampersand | Apostrophe
 	| Asterisk | Plus | Comma | Minus | Period | Slash Slash | Bracket Position Bracket
-	| Colon | Semicolon | At | Caret | Underscore | Accent | Bar | Tilde
+	| Colon | Semicolon | At | Caret | Underscore | Accent | Bar | Tilde | Equality
 
 instance Setoid Sign where
 	Exclamation == Exclamation = True
