@@ -55,7 +55,7 @@ instance Setoid Control where
 	DEL == DEL = True
 	_ == _ = False
 
-data Sign = Exclamation | Quote Quote | Hash | Dollar | Percent | Ampersand | Apostrophe
+data Sign = Exclamation | Question | Quote Quote | Hash | Dollar | Percent | Ampersand | Apostrophe
 	| Asterisk | Plus | Comma | Minus | Period | Slash Slash | Bracket Position Bracket
 	| Colon | Semicolon | At | Caret | Underscore | Accent | Bar | Tilde | Equality
 
