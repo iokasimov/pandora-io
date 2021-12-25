@@ -5,7 +5,6 @@ import Pandora.IO.Bytes as Exports
 
 import "pandora" Pandora.Pattern.Morphism.Straight (Straight (Straight))
 import "pandora" Pandora.Pattern.Semigroupoid ((.))
-import "pandora" Pandora.Pattern.Category (($))
 import "pandora" Pandora.Pattern.Functor.Covariant (Covariant ((<-|-)))
 import "pandora" Pandora.Pattern.Functor.Semimonoidal (Semimonoidal (mult))
 import "pandora" Pandora.Pattern.Functor.Monoidal (Monoidal (unit))
@@ -15,7 +14,7 @@ import "pandora" Pandora.Paradigm.Primary.Algebraic.Exponential (type (-->))
 import "pandora" Pandora.Paradigm.Primary.Algebraic.Product ((:*:) ((:*:)))
 import "pandora" Pandora.Paradigm.Primary.Algebraic.One (One (One))
 import "pandora" Pandora.Paradigm.Primary.Algebraic ()
-import "pandora" Pandora.Paradigm.Controlflow.Effect.Interpreted (run)
+import "pandora" Pandora.Paradigm.Controlflow.Effect.Interpreted (run, (!))
 
 import "ghc-prim" GHC.Prim (State#, RealWorld)
 import "ghc-prim" GHC.Types (IO (IO))
@@ -24,10 +23,10 @@ instance Covariant (->) (->) IO where
 	f <-|- x = bindIO x (returnIO . f)
 
 instance Semimonoidal (-->) (:*:) (:*:) IO where
-	mult = Straight $ \(x :*: y) -> bindIO x $ \x' -> bindIO y $ \y' -> returnIO (x' :*: y')
+	mult = Straight ! \(x :*: y) -> bindIO x (\x' -> bindIO y (\y' -> returnIO (x' :*: y')))
 
 instance Monoidal (-->) (-->) (:*:) (:*:) IO where
-	unit _ = Straight $ returnIO . ($ One) . run
+	unit _ = Straight ! returnIO . (! One) . run
 
 instance Bindable (->) IO where
 	f =<< x = bindIO x f
