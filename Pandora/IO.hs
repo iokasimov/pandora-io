@@ -3,6 +3,7 @@ module Pandora.IO (IO, module Exports) where
 import Pandora.IO.ASCII as Exports
 import Pandora.IO.Bytes as Exports
 
+import "pandora" Pandora.Core.Interpreted (run, (<~))
 import "pandora" Pandora.Pattern.Morphism.Straight (Straight (Straight))
 import "pandora" Pandora.Pattern.Semigroupoid ((.))
 import "pandora" Pandora.Pattern.Category ((<--))
@@ -15,7 +16,6 @@ import "pandora" Pandora.Paradigm.Algebraic.Exponential (type (-->))
 import "pandora" Pandora.Paradigm.Algebraic.Product ((:*:) ((:*:)))
 import "pandora" Pandora.Paradigm.Algebraic.One (One (One))
 import "pandora" Pandora.Paradigm.Algebraic ()
-import "pandora" Pandora.Paradigm.Controlflow.Effect.Interpreted (run, (<~))
 
 import "ghc-prim" GHC.Prim (State#, RealWorld)
 import "ghc-prim" GHC.Types (IO (IO))
